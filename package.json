@@ -1,0 +1,29 @@
+{
+  "name": "rallyautomation",
+  "version": "1.0.0",
+  "description": "Rally Automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx wdio run ./wdio.conf.js",
+    "DeNoraTech": "npx wdio run ./wdio.conf.js --suite DeNoraTech && ./node_modules/.bin/allure generate allure-results --clean && allure open",
+    "allureReport": "./node_modules/.bin/allure generate allure-results --clean && allure open"
+  },
+  "author": "Laxmiraj Uppula",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/cli": "^7.7.4",
+    "@wdio/sync": "^7.9.0",
+    "allure-commandline": "^2.13.8",
+    "chai-webdriverio": "^1.0.0",
+    "del": "^6.0.0"
+  },
+  "devDependencies": {
+    "@wdio/allure-reporter": "^7.9.0",
+    "@wdio/local-runner": "^7.9.0",
+    "@wdio/mocha-framework": "^7.9.0",
+    "@wdio/spec-reporter": "^7.9.0",
+    "chai": "^4.3.4",
+    "chromedriver": "^92.0.0",
+    "wdio-chromedriver-service": "^7.2.0"
+  }
+}

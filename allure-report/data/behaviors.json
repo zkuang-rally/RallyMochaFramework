@@ -1,0 +1,31 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "Verify BENEFITS page",
+    "uid" : "59e8046ab7ab93dd",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "passed",
+    "time" : {
+      "start" : 1629123147727,
+      "stop" : 1629123223844,
+      "duration" : 76117
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "chrome-92.0.4515.131" ]
+  }, {
+    "name" : "Verify Customer Support Number",
+    "uid" : "34b4bfed384f678f",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "passed",
+    "time" : {
+      "start" : 1629123147945,
+      "stop" : 1629123247686,
+      "duration" : 99741
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "chrome-92.0.4515.131" ]
+  } ]
+}
