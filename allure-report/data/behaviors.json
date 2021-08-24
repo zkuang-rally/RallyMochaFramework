@@ -1,31 +1,57 @@
 {
   "uid" : "b1a8273437954620fa374b796ffaacdd",
-  "name" : "behaviors",
   "children" : [ {
-    "name" : "Verify BENEFITS page",
-    "uid" : "59e8046ab7ab93dd",
+    "name" : "Support Details Validation of client AKZONOBEL_01012021",
+    "uid" : "58404f70965ae3a",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {
-      "start" : 1629123147727,
-      "stop" : 1629123223844,
-      "duration" : 76117
+      "start" : 1629810024273,
+      "stop" : 1629810117060,
+      "duration" : 92787
     },
     "flaky" : false,
     "newFailed" : false,
-    "parameters" : [ "chrome-92.0.4515.131" ]
+    "parameters" : [ "chrome-92.0.4515.159" ]
   }, {
-    "name" : "Verify Customer Support Number",
-    "uid" : "34b4bfed384f678f",
+    "name" : "Resource Page Validation of client AKZONOBEL_01012021",
+    "uid" : "bda0626b7eb16b9b",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {
-      "start" : 1629123147945,
-      "stop" : 1629123247686,
-      "duration" : 99741
+      "start" : 1629810024332,
+      "stop" : 1629810140270,
+      "duration" : 115938
     },
     "flaky" : false,
     "newFailed" : false,
-    "parameters" : [ "chrome-92.0.4515.131" ]
-  } ]
+    "parameters" : [ "chrome-92.0.4515.159" ]
+  }, {
+    "name" : "Support Details Validation of client DeNoraTech_01012021",
+    "uid" : "106b2b4f272cecb3",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "passed",
+    "time" : {
+      "start" : 1629810117062,
+      "stop" : 1629810209353,
+      "duration" : 92291
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "chrome-92.0.4515.159" ]
+  }, {
+    "name" : "Resource Page Validation of client DeNoraTech_01012021",
+    "uid" : "da722253518808a7",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "passed",
+    "time" : {
+      "start" : 1629810140271,
+      "stop" : 1629810250770,
+      "duration" : 110499
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "chrome-92.0.4515.159" ]
+  } ],
+  "name" : "behaviors"
 }

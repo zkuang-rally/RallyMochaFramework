@@ -23,8 +23,8 @@ exports.config = {
   //
   specs: ["./test/**/*.js"],
   suites: {
-    DeNoraTech: ["./clients/DeNoraTech01012021/tests/resource.test.js",
-                  "./clients/DeNoraTech01012021/tests/support.test.js",
+    Regression: ["./test/resource.test.js",
+                  "./test/support.test.js"
                 ],
   },
 

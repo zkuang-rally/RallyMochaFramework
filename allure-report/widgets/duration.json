@@ -1,20 +1,40 @@
 [ {
-  "uid" : "59e8046ab7ab93dd",
-  "name" : "Verify BENEFITS page",
+  "uid" : "58404f70965ae3a",
+  "name" : "Support Details Validation of client AKZONOBEL_01012021",
   "time" : {
-    "start" : 1629123147727,
-    "stop" : 1629123223844,
-    "duration" : 76117
+    "start" : 1629810024273,
+    "stop" : 1629810117060,
+    "duration" : 92787
   },
   "status" : "passed",
   "severity" : "normal"
 }, {
-  "uid" : "34b4bfed384f678f",
-  "name" : "Verify Customer Support Number",
+  "uid" : "bda0626b7eb16b9b",
+  "name" : "Resource Page Validation of client AKZONOBEL_01012021",
   "time" : {
-    "start" : 1629123147945,
-    "stop" : 1629123247686,
-    "duration" : 99741
+    "start" : 1629810024332,
+    "stop" : 1629810140270,
+    "duration" : 115938
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "106b2b4f272cecb3",
+  "name" : "Support Details Validation of client DeNoraTech_01012021",
+  "time" : {
+    "start" : 1629810117062,
+    "stop" : 1629810209353,
+    "duration" : 92291
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "da722253518808a7",
+  "name" : "Resource Page Validation of client DeNoraTech_01012021",
+  "time" : {
+    "start" : 1629810140271,
+    "stop" : 1629810250770,
+    "duration" : 110499
   },
   "status" : "passed",
   "severity" : "normal"

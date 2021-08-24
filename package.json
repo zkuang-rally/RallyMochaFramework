@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx wdio run ./wdio.conf.js",
-    "DeNoraTech": "npx wdio run ./wdio.conf.js --suite DeNoraTech && ./node_modules/.bin/allure generate allure-results --clean && allure open",
+    "Regression": "npx wdio run ./wdio.conf.js --suite Regression && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "allureReport": "./node_modules/.bin/allure generate allure-results --clean && allure open"
   },
   "author": "Laxmiraj Uppula",
@@ -15,7 +15,8 @@
     "@wdio/sync": "^7.9.0",
     "allure-commandline": "^2.13.8",
     "chai-webdriverio": "^1.0.0",
-    "del": "^6.0.0"
+    "del": "^6.0.0",
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@wdio/allure-reporter": "^7.9.0",

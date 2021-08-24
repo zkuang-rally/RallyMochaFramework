@@ -3,11 +3,16 @@ const action = require("../helpers/actionHelpers");
 const SFPage = require("../pages/rof.page");
 
 class requirements {
-  getCustomerSupportNumber(SupportPage, username, password) {
-    page.open("https://rallyhealth.my.salesforce.com/"+SupportPage);
+  getCustomerSupportNumber(username, password, impName) {
+    page.open("https://rallyhealth.my.salesforce.com/");
     action.doSetValue($(SFPage.username), username);
     action.doSetValue($(SFPage.password), password);
     action.doClick($(SFPage.login));
+    action.doWaitForElement($(SFPage.alert));
+    action.doClick($(SFPage.alert));
+    action.doSetValue($(SFPage.search), impName);
+    action.doClick($(SFPage.searchBtn));
+    $("//a[normalize-space()="+impName+"]").click();
   }
 }
 module.exports = new requirements();
