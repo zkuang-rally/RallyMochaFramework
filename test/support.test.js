@@ -33,29 +33,57 @@ describe("Rally Clients Validation", () => {
             $(SFPage.customerSupportNumber)
           );
           browser.takeScreenshot();
-          const SFsupportNumber = CustomerSupportNumber.slice(26, -1);
+          if (CustomerSupportNumber === "Optum Support Custom") {
+            const SFsupportNumber = action
+              .doGetText($(SFPage.customCustomerSN))
+              .replace(/[^0-9]/g, "");
 
-          // Rally UI Validation
-          src.Login(
-            clientData.LoginURL,
-            testData[2]["RALLY_EMAIL"],
-            testData[2]["RALLY_PASSWORD"]
-          );
-          src.SupportPage();
-          const RSupportNumber = action.doGetText(
-            $(supportPage.contactSupportNumber)
-          );
-          assert.equal(
-            SFsupportNumber,
-            RSupportNumber,
-            "Invalid Customer Support Number"
-          );
-          browser.takeScreenshot();
-          console.log(
-            files.slice(0, -5) +
-              " Support Details Validation Completed Successfully"
-          );
-          browser.reloadSession();
+            src.Login(
+              clientData.LoginURL,
+              testData[2]["RALLY_EMAIL"],
+              testData[2]["RALLY_PASSWORD"]
+            );
+            src.CustomSupportPage();
+            const RSupportNumber = action
+              .doGetText($(supportPage.contactSupportNumber))
+              .replace(/[^a-zA-Z0-9]/g, "");
+            assert.equal(
+              SFsupportNumber,
+              RSupportNumber,
+              "Invalid Customer Support Number"
+            );
+            browser.takeScreenshot();
+            console.log(
+              files.slice(0, -5) +
+                " Support Details Validation Completed Successfully"
+            );
+            browser.reloadSession();
+          } else {
+            const supportNumber = CustomerSupportNumber.replace(/[^0-9]/g, "");
+            const SFsupportNumber = supportNumber.slice(1);
+
+            // Rally UI Validation
+            src.Login(
+              clientData.LoginURL,
+              testData[2]["RALLY_EMAIL"],
+              testData[2]["RALLY_PASSWORD"]
+            );
+            src.SupportPage();
+            const RSupportNumber = action
+              .doGetText($(supportPage.contactSupportNumber))
+              .replace(/[^0-9]/g, "");
+            assert.equal(
+              SFsupportNumber,
+              RSupportNumber,
+              "Invalid Customer Support Number"
+            );
+            browser.takeScreenshot();
+            console.log(
+              files.slice(0, -5) +
+                " Support Details Validation Completed Successfully"
+            );
+            browser.reloadSession();
+          }
         } catch (exception) {
           browser.reloadSession();
           throw exception;

@@ -38,5 +38,14 @@ class buildPage {
     action.doClick($(homePage.reward));
     action.doWaitForElement(rewardsPage.genericButton);
   }
+
+  CustomSupportPage() {
+    action.doClick($(homePage.myprofile));
+    action.doClick($(homePage.helpcenter));
+    page.moveToTab("helpcenter.werally.com/rally/s/");
+    $(supportPage.carrierDropdown).selectByIndex(1);
+    action.doWaitForElement($(supportPage.contactSupportBtn));
+    action.doClick($(supportPage.contactSupportBtn));
+  }
 }
 module.exports = new buildPage();

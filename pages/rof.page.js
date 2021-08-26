@@ -8,5 +8,8 @@ module.exports = {
   alert                 : "#tryLexDialogX",
   search                : "#phSearchInput",
   searchBtn             : "#phSearchButton",
-  customResoursePage    : "//img[@id='00N2R000007NnYt_chkbox']"
+  customResoursePage    : "//img[@id='00N2R000007NnYt_chkbox']",
+  resourcePageRequirement: "//a[contains(text(),'Resource Page -')]",
+  resourcePageHeadline    : "//div[@id='00NE0000006Km7g_ileinner']",
+  resourcePageBodyText    : "//div[@id='00NE0000006Km7h_ileinner']"
 };
