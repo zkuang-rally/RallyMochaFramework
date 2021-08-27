@@ -33,7 +33,9 @@ describe("Implementation", () => {
             action.doWaitForElement($(CustomResoucePageChkBox));
             $(CustomResoucePageChkBox).scrollIntoView();
             browser.takeScreenshot();
-            const check = $(CustomResoucePageChkBox).getAttribute("title").toLowerCase();
+            const check = $(CustomResoucePageChkBox)
+              .getAttribute("title")
+              .toLowerCase();
             if (check === "checked") {
               action.doWaitForElement($(SFPage.resourcePageRequirement));
               action.doClick($(SFPage.resourcePageRequirement));
