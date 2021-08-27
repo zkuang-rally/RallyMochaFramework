@@ -5,10 +5,11 @@ const constants = require("../constants");
 const action = require("../helpers/actionHelpers");
 const SFPage = require("../pages/rof.page");
 const supportPage = require("../pages/support.page");
+const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
 
-describe("Rally Clients Validation", () => {
+describe("Implementation", () => {
   try {
     const GTUPrimaryFiles = fs.readdirSync("./clientTestData", ["**.xlsx"]);
     for (let i = 1; i < GTUPrimaryFiles.length; i++) {
@@ -17,77 +18,82 @@ describe("Rally Clients Validation", () => {
       const workbookSheets = workbook.SheetNames;
       const sheet = workbookSheets[0];
       const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-      const clientName = "'" + testData[2]["CUST_LEG_NM"] + "'";
-
-      it("Support Details Validation of client " + files.slice(0, -5), () => {
-        try {
-          // Taking Requirement from Salesforce
-          rof.getCustomerSupportNumber(
-            constants.username,
-            constants.password,
-            clientName
-          );
-          action.doWaitForElement($(SFPage.customerSupportNumber));
-          $(SFPage.customerSupportNumber).scrollIntoView();
-          const CustomerSupportNumber = action.doGetText(
-            $(SFPage.customerSupportNumber)
-          );
-          browser.takeScreenshot();
-          if (CustomerSupportNumber === "Optum Support Custom") {
-            const SFsupportNumber = action
-              .doGetText($(SFPage.customCustomerSN))
-              .replace(/[^0-9]/g, "");
-
-            src.Login(
-              clientData.LoginURL,
-              testData[2]["RALLY_EMAIL"],
-              testData[2]["RALLY_PASSWORD"]
+      const clientName =
+        "'" + testData[2]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
+      describe(clientName, () => {
+        it("Support Details Page", () => {
+          try {
+            // Taking Requirement from Salesforce
+            rof.getCustomerSupportNumber(
+              constants.username,
+              constants.password,
+              clientName
             );
-            src.CustomSupportPage();
-            const RSupportNumber = action
-              .doGetText($(supportPage.contactSupportNumber))
-              .replace(/[^a-zA-Z0-9]/g, "");
-            assert.equal(
-              SFsupportNumber,
-              RSupportNumber,
-              "Invalid Customer Support Number"
+            action.doWaitForElement($(SFPage.customerSupportNumber));
+            $(SFPage.customerSupportNumber).scrollIntoView();
+            const CustomerSupportNumber = action.doGetText(
+              $(SFPage.customerSupportNumber)
             );
             browser.takeScreenshot();
-            console.log(
-              files.slice(0, -5) +
-                " Support Details Validation Completed Successfully"
-            );
-            browser.reloadSession();
-          } else {
-            const supportNumber = CustomerSupportNumber.replace(/[^0-9]/g, "");
-            const SFsupportNumber = supportNumber.slice(1);
+            if (CustomerSupportNumber === "Optum Support Custom") {
+              const SFsupportNumber = action
+                .doGetText($(SFPage.customCustomerSN))
+                .replace(/[^0-9]/g, "");
+              // Rally UI Validation
+              src.Login(
+                clientData.LoginURL,
+                testData[2]["RALLY_EMAIL"],
+                testData[2]["RALLY_PASSWORD"]
+              );
+              src.CustomSupportPage();
+              const RSupportNumber = action
+                .doGetText($(supportPage.contactSupportNumber))
+                .replace(/[^a-zA-Z0-9]/g, "");
+              assert.equal(
+                SFsupportNumber,
+                RSupportNumber,
+                "Invalid Customer Support Number"
+              );
+              browser.takeScreenshot();
+              console.log(
+                clientName +
+                  " Support Details Validation Completed Successfully"
+              );
+              browser.reloadSession();
+            } else {
+              const supportNumber = CustomerSupportNumber.replace(
+                /[^0-9]/g,
+                ""
+              );
+              const SFsupportNumber = supportNumber.slice(1);
 
-            // Rally UI Validation
-            src.Login(
-              clientData.LoginURL,
-              testData[2]["RALLY_EMAIL"],
-              testData[2]["RALLY_PASSWORD"]
-            );
-            src.SupportPage();
-            const RSupportNumber = action
-              .doGetText($(supportPage.contactSupportNumber))
-              .replace(/[^0-9]/g, "");
-            assert.equal(
-              SFsupportNumber,
-              RSupportNumber,
-              "Invalid Customer Support Number"
-            );
-            browser.takeScreenshot();
-            console.log(
-              files.slice(0, -5) +
-                " Support Details Validation Completed Successfully"
-            );
+              // Rally UI Validation
+              src.Login(
+                clientData.LoginURL,
+                testData[2]["RALLY_EMAIL"],
+                testData[2]["RALLY_PASSWORD"]
+              );
+              src.SupportPage();
+              const RSupportNumber = action
+                .doGetText($(supportPage.contactSupportNumber))
+                .replace(/[^0-9]/g, "");
+              assert.equal(
+                SFsupportNumber,
+                RSupportNumber,
+                "Invalid Customer Support Number"
+              );
+              browser.takeScreenshot();
+              console.log(
+                clientName +
+                  " Support Details Validation Completed Successfully"
+              );
+              browser.reloadSession();
+            }
+          } catch (exception) {
             browser.reloadSession();
+            throw exception;
           }
-        } catch (exception) {
-          browser.reloadSession();
-          throw exception;
-        }
+        });
       });
     }
   } catch (exception) {
