@@ -4,6 +4,7 @@ const src = require("../main/sourse");
 const constants = require("../constants");
 const action = require("../helpers/actionHelpers");
 const SFPage = require("../pages/rof.page");
+const loginPage = require("../pages/login.page");
 const supportPage = require("../pages/support.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
@@ -19,7 +20,7 @@ describe("Implementation", () => {
       const sheet = workbookSheets[0];
       const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
       const clientName =
-        "'" + testData[2]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
+        "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
       describe(clientName, () => {
         it("Support Details Page", () => {
           try {
@@ -42,8 +43,8 @@ describe("Implementation", () => {
               // Rally UI Validation
               src.Login(
                 clientData.LoginURL,
-                testData[2]["RALLY_EMAIL"],
-                testData[2]["RALLY_PASSWORD"]
+                testData[0]["RALLY_EMAIL"],
+                testData[0]["RALLY_PASSWORD"]
               );
               src.CustomSupportPage();
               const RSupportNumber = action
@@ -70,8 +71,8 @@ describe("Implementation", () => {
               // Rally UI Validation
               src.Login(
                 clientData.LoginURL,
-                testData[2]["RALLY_EMAIL"],
-                testData[2]["RALLY_PASSWORD"]
+                testData[0]["RALLY_EMAIL"],
+                testData[0]["RALLY_PASSWORD"]
               );
               src.SupportPage();
               const RSupportNumber = action

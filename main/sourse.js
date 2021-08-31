@@ -11,6 +11,13 @@ class buildPage {
     action.doSetValue($(loginPage.email), email);
     action.doSetValue($(loginPage.password), password);
     action.doClick($(loginPage.loginBtn));
+    browser.pause(2000);
+    const alert = $(loginPage.alertBanner).isDisplayed();
+    assert.equal(
+      alert,
+      false,
+      "The email/password combination you entered is not valid. Please try again."
+    );
   }
 
   ResourcePage() {
