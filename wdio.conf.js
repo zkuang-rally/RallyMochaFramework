@@ -23,7 +23,7 @@ exports.config = {
   //
   specs: ["./test/**/*.js"],
   suites: {
-    Regression: ["./test/resource.test.js",
+    Regression: [//"./test/resource.test.js",
                  "./test/support.test.js"
                 ],
   },

@@ -1,4 +1,3 @@
 module.exports = {
-    launchDate  :   "01/01/2021"
-  };
-  
+  launchDate: "09/01/2021",
+};
