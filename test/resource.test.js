@@ -19,7 +19,7 @@ describe("Implementation", () => {
       const sheet = workbookSheets[0];
       const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
       const clientName =
-        "'" + testData[2]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
+        "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
       describe(clientName, () => {
         it("Benefits Page", () => {
           try {
@@ -46,8 +46,8 @@ describe("Implementation", () => {
               // UI Validation
               src.Login(
                 clientData.LoginURL,
-                testData[2]["RALLY_EMAIL"],
-                testData[2]["RALLY_PASSWORD"]
+                testData[0]["RALLY_EMAIL"],
+                testData[0]["RALLY_PASSWORD"]
               );
               src.ResourcePage();
               action.doWaitForElement($(ResourcePage.headline));
@@ -76,8 +76,8 @@ describe("Implementation", () => {
               //Rally UI Validation
               src.Login(
                 clientData.LoginURL,
-                testData[2]["RALLY_EMAIL"],
-                testData[2]["RALLY_PASSWORD"]
+                testData[0]["RALLY_EMAIL"],
+                testData[0]["RALLY_PASSWORD"]
               );
               src.ResourcePage();
               browser.takeScreenshot();

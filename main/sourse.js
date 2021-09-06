@@ -31,9 +31,13 @@ class buildPage {
   }
 
   SupportPage() {
-    action.doClick($(homePage.myprofile));
+    $(homePage.myprofile).moveTo();
     action.doClick($(homePage.helpcenter));
     page.moveToTab("helpcenter.werally.com/rally/s/");
+    const dp = $(supportPage.carrierDropdown).isDisplayed();
+    if(dp === true){
+      $(supportPage.carrierDropdown).selectByIndex(1);
+    }
     action.doWaitForElement($(supportPage.contactSupportBtn));
     action.doClick($(supportPage.contactSupportBtn));
   }
@@ -47,7 +51,7 @@ class buildPage {
   }
 
   CustomSupportPage() {
-    action.doClick($(homePage.myprofile));
+    $(homePage.myprofile).moveTo();
     action.doClick($(homePage.helpcenter));
     page.moveToTab("helpcenter.werally.com/rally/s/");
     $(supportPage.carrierDropdown).selectByIndex(1);

@@ -23,9 +23,7 @@ exports.config = {
   //
   specs: ["./test/**/*.js"],
   suites: {
-    Regression: [//"./test/resource.test.js",
-                 "./test/support.test.js"
-                ],
+    Regression: ["./test/**/*.js"]
   },
 
   // Patterns to exclude.

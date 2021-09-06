@@ -4,7 +4,7 @@
   "description": "Rally Automation",
   "main": "index.js",
   "scripts": {
-    "test": "npx wdio run ./wdio.conf.js",
+    "test": "npx wdio run ./wdio.conf.js && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "Regression": "npx wdio run ./wdio.conf.js --suite Regression && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "allureReport": "./node_modules/.bin/allure generate allure-results --clean && allure open"
   },
