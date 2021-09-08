@@ -46,12 +46,12 @@ class elementUtil {
   }
 
   doWaitForExist(element) {
-    return element.waitForExist(/*{ timeout: 5000 }*/);
+    return element.waitForExist();
   }
 
   doWaitForElement(element) {
     browser.waitUntil(
-      function() {
+      function () {
         return element.isDisplayed() === true;
       },
       45000,

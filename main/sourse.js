@@ -26,9 +26,7 @@ class buildPage {
     action.doWaitForElement($(homePage.benefit));
     action.doClick($(homePage.benefit));
     action.doWaitForElement($(benefitPage.headline));
-    action.doGetText($(benefitPage.headline));
-    action.doGetText($(benefitPage.bodytext));
-  }
+    }
 
   SupportPage() {
     $(homePage.myprofile).moveTo();

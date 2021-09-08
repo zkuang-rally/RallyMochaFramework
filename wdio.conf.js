@@ -22,13 +22,14 @@ exports.config = {
   // will be called from there.
   //
   specs: ["./test/**/*.js"],
-  suites: {
-    Regression: ["./test/**/*.js"]
-  },
+  // suites: {
+  //   Regression: ["./drafts/**/*.js"]
+  // },
 
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
+    //"./test/support.test.js"
   ],
   //
   // ============
