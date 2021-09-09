@@ -50,12 +50,12 @@ describe("Implementation", () => {
               const RSupportNumber = action
                 .doGetText($(supportPage.contactSupportNumber))
                 .replace(/[^a-zA-Z0-9]/g, "");
+              browser.takeScreenshot();
               assert.equal(
                 SFsupportNumber,
                 RSupportNumber,
                 "Invalid Customer Support Number"
               );
-              browser.takeScreenshot();
               console.log(
                 clientName +
                   " Support Details Validation Completed Successfully"
@@ -78,12 +78,12 @@ describe("Implementation", () => {
               const RSupportNumber = action
                 .doGetText($(supportPage.contactSupportNumber))
                 .replace(/[^0-9]/g, "");
+              browser.takeScreenshot();
               assert.equal(
                 SFsupportNumber,
                 RSupportNumber,
                 "Invalid Customer Support Number"
               );
-              browser.takeScreenshot();
               console.log(
                 clientName +
                   " Support Details Validation Completed Successfully"

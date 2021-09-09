@@ -57,6 +57,7 @@ describe("Implementation", () => {
               const ResourcePageBodyText = action.doGetText(
                 $(ResourcePage.bodytext)
               );
+              browser.takeScreenshot();
               assert.equal(
                 Headline,
                 ResourcePageHeadline,
@@ -67,7 +68,6 @@ describe("Implementation", () => {
                 ResourcePageBodyText,
                 "Invalid page Body Text"
               );
-              browser.takeScreenshot();
               console.log(
                 clientName + " Benefits Page Validation Completed Successfully"
               );
