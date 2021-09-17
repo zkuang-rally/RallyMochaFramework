@@ -59,5 +59,9 @@ class elementUtil {
     );
     return element;
   }
+
+  isArray(o){
+    return Object.prototype.toString.call(o) === '[object Array]'
+  }
 }
 module.exports = new elementUtil();
