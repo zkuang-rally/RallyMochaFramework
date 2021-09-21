@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npx wdio run ./wdio.conf.js && ./node_modules/.bin/allure generate allure-results --clean && allure open",
+    "test": "npx wdio run ./wdio.conf.js --spec re && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "allureReport": "./node_modules/.bin/allure generate allure-results --clean && allure open"
   },
   "author": "Laxmiraj Uppula",
