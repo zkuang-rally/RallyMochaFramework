@@ -4,6 +4,7 @@
   "description": "Rally Automation",
   "main": "index.js",
   "scripts": {
+    "test:testrail": "TEST_RAIL_UPDATE=true npx wdio wdio.conf.js",
     "test": "npx wdio run ./wdio.conf.js && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "Regression": "npx wdio run ./wdio.conf.js --suite Regression && ./node_modules/.bin/allure generate allure-results --clean && allure open",
     "allureReport": "./node_modules/.bin/allure generate allure-results --clean && allure open"
@@ -16,6 +17,9 @@
     "allure-commandline": "^2.13.8",
     "chai-webdriverio": "^1.0.0",
     "del": "^6.0.0",
+    "rail": "^0.9.1",
+    "reporter": "^0.1.0",
+    "test": "^0.6.0",
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
