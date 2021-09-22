@@ -1,5 +1,6 @@
-const config = require("./config");
-//const {config, params} = require('@rally/cookbook');
+///const config = require("./config");
+const {config, params} = require('@rally/cookbook');
+const myDefaultConfig = config;
 exports.config = {
   //
   // ====================
