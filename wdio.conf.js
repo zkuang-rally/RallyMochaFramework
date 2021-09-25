@@ -1,3 +1,4 @@
+const config = require("./config");
 exports.config = {
     //
     // ====================
@@ -100,7 +101,7 @@ exports.config = {
     baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 200000,
+    waitforTimeout: config.waitforTimeout,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
@@ -154,7 +155,7 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 300000
+        timeout: config.timeout
     },
     //
     // =====
@@ -248,15 +249,15 @@ exports.config = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-    afterTest: function (
-        test,
-        context,
-        { error, result, duration, passed, retries }
-      ) {
-        if (error) {
-          browser.takeScreenshot();
-        }
-      },    
+    // afterTest: function (
+    //     test,
+    //     context,
+    //     { error, result, duration, passed, retries }
+    //   ) {
+    //     if (error) {
+    //       browser.takeScreenshot();
+    //     }
+    //   },    
     /**
      * Hook that gets executed after the suite has ended
      * @param {Object} suite suite details

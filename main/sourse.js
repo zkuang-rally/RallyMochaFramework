@@ -26,17 +26,18 @@ class buildPage {
     action.doWaitForElement($(homePage.benefit));
     action.doClick($(homePage.benefit));
     action.doWaitForElement($(benefitPage.headline));
-    }
+  }
 
   SupportPage() {
     $(homePage.myprofile).moveTo();
     action.doClick($(homePage.helpcenter));
     page.moveToTab("helpcenter.werally.com/rally/s/");
-    const dp = $(supportPage.carrierDropdown).isDisplayed();
-    if(dp === true){
+    browser.setTimeout({ implicit: 1000 });
+    let elemFlag = $(supportPage.carrierDropdown).isExisting();
+    console.log("Element status: " + elemFlag);
+    if (elemFlag) {
       $(supportPage.carrierDropdown).selectByIndex(1);
     }
-    action.doWaitForElement($(supportPage.contactSupportBtn));
     action.doClick($(supportPage.contactSupportBtn));
   }
 
