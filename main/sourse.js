@@ -32,11 +32,12 @@ class buildPage {
     $(homePage.myprofile).moveTo();
     action.doClick($(homePage.helpcenter));
     page.moveToTab("helpcenter.werally.com/rally/s/");
-    const dp = $(supportPage.carrierDropdown).isDisplayed();
-    if(dp === true){
+    browser.setTimeout({ implicit: 2000 });
+    let elemFlag = $(supportPage.carrierDropdown).isExisting();
+    console.log("Element status: " + elemFlag);
+    if (elemFlag) {
       $(supportPage.carrierDropdown).selectByIndex(1);
     }
-    action.doWaitForElement($(supportPage.contactSupportBtn));
     action.doClick($(supportPage.contactSupportBtn));
   }
 
@@ -46,15 +47,6 @@ class buildPage {
     action.doWaitForElement($(homePage.reward));
     action.doClick($(homePage.reward));
     action.doWaitForElement(rewardsPage.genericButton);
-  }
-
-  CustomSupportPage() {
-    $(homePage.myprofile).moveTo();
-    action.doClick($(homePage.helpcenter));
-    page.moveToTab("helpcenter.werally.com/rally/s/");
-    $(supportPage.carrierDropdown).selectByIndex(1);
-    action.doWaitForElement($(supportPage.contactSupportBtn));
-    action.doClick($(supportPage.contactSupportBtn));
   }
 }
 module.exports = new buildPage();

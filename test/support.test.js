@@ -46,7 +46,7 @@ describe("Implementation", () => {
                 testData[0]["RALLY_EMAIL"],
                 testData[0]["RALLY_PASSWORD"]
               );
-              src.CustomSupportPage();
+              src.SupportPage();
               const RSupportNumber = action
                 .doGetText($(supportPage.contactSupportNumber))
                 .replace(/[^a-zA-Z0-9]/g, "");
