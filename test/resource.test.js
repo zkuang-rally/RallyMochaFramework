@@ -8,11 +8,13 @@ const ResourcePage = require("../pages/benefit.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
+const path = require("path");
 
 describe("Implementation", () => {
   try {
-    const GTUPrimaryFiles = fs.readdirSync("./clientTestData", ["**.xlsx"]);
-    for (let i = 1; i < GTUPrimaryFiles.length; i++) {
+    const dataPath = path.resolve(__dirname,"./../clientTestData")
+    const GTUPrimaryFiles = fs.readdirSync(dataPath, ["**.xlsx"]);
+    for (let i = 0; i < GTUPrimaryFiles.length; i++) {
       const files = GTUPrimaryFiles[i];
       const workbook = XLSX.readFile("clientTestData/" + files);
       const workbookSheets = workbook.SheetNames;
