@@ -9,91 +9,102 @@ const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
 
+
 describe("Implementation", () => {
-  try {
-    const GTUPrimaryFiles = fs.readdirSync("./clientTestData", ["**.xlsx"]);
-    for (let i = 1; i < GTUPrimaryFiles.length; i++) {
-      const files = GTUPrimaryFiles[i];
-      const workbook = XLSX.readFile("clientTestData/" + files);
-      const workbookSheets = workbook.SheetNames;
-      const sheet = workbookSheets[0];
-      const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-      const clientName =
-        "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
-      describe(clientName, () => {
-        it("Benefits Page", () => {
-          try {
-            //Taking requirement from Salesforce
-            rof.getCustomerSupportNumber(
-              constants.username,
-              constants.password,
-              clientName
-            );
-            const CustomResoucePageChkBox = SFPage.customResoursePage;
-            action.doWaitForElement($(CustomResoucePageChkBox));
-            $(CustomResoucePageChkBox).scrollIntoView();
-            browser.takeScreenshot();
-            const check = $(CustomResoucePageChkBox)
-              .getAttribute("title")
-              .toLowerCase();
-            if (check === "checked") {
-              action.doWaitForElement($(SFPage.resourcePageRequirement));
-              action.doClick($(SFPage.resourcePageRequirement));
-              action.doWaitForElement($(SFPage.resourcePageHeadline));
-              const Headline = action.doGetText($(SFPage.resourcePageHeadline));
-              const BodyText = action.doGetText($(SFPage.resourcePageBodyText));
-              browser.takeScreenshot();
-              // UI Validation
-              src.Login(
-                clientData.LoginURL,
-                testData[0]["RALLY_EMAIL"],
-                testData[0]["RALLY_PASSWORD"]
-              );
-              src.ResourcePage();
-              action.doWaitForElement($(ResourcePage.headline));
-              const ResourcePageHeadline = action.doGetText(
-                $(ResourcePage.headline)
-              );
-              const ResourcePageBodyText = action.doGetText(
-                $(ResourcePage.bodytext)
-              );
-              browser.takeScreenshot();
-              assert.equal(
-                Headline,
-                ResourcePageHeadline,
-                "Invalid page Headline"
-              );
-              assert.equal(
-                BodyText,
-                ResourcePageBodyText,
-                "Invalid page Body Text"
-              );
-              console.log(
-                clientName + " Benefits Page Validation Completed Successfully"
-              );
-              browser.reloadSession();
-            } else {
-              //Rally UI Validation
-              src.Login(
-                clientData.LoginURL,
-                testData[0]["RALLY_EMAIL"],
-                testData[0]["RALLY_PASSWORD"]
-              );
-              src.ResourcePage();
-              browser.takeScreenshot();
-              console.log(
-                clientName + " Benefits Page Validation Completed Successfully"
-              );
-              browser.reloadSession();
-            }
-          } catch (exception) {
-            browser.reloadSession();
-            throw exception;
-          }
-        });
-      });
+    console.log("resource");
+    try {
+        const GTUPrimaryFiles = fs.readdirSync("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData", ["**.xlsx"]);
+        console.log("Testing" + GTUPrimaryFiles);
+        for (let i = 0; i < GTUPrimaryFiles.length; i++) {
+            const files = GTUPrimaryFiles[i];
+            const workbook = XLSX.readFile("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData/" + files);
+            const workbookSheets = workbook.SheetNames;
+            const sheet = workbookSheets[0];
+            const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+            const clientName =
+                "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
+            describe(clientName, () =>
+
+
+                {
+                    it("T447585401 Benefits Page", () =>
+
+                        {
+                            try {
+                                //Taking requirement from Salesforce
+                                rof.getCustomerSupportNumber(
+                                    constants.username,
+                                    constants.password,
+                                    clientName
+                                );
+                                const CustomResoucePageChkBox = SFPage.customResoursePage;
+                                action.doWaitForElement($(CustomResoucePageChkBox));
+                                $(CustomResoucePageChkBox).scrollIntoView();
+                                browser.takeScreenshot();
+                                const check = $(CustomResoucePageChkBox)
+                                    .getAttribute("title")
+                                    .toLowerCase();
+                                if (check === "checked") {
+                                    action.doWaitForElement($(SFPage.resourcePageRequirement));
+                                    action.doClick($(SFPage.resourcePageRequirement));
+                                    action.doWaitForElement($(SFPage.resourcePageHeadline));
+                                    const Headline = action.doGetText($(SFPage.resourcePageHeadline));
+                                    const BodyText = action.doGetText($(SFPage.resourcePageBodyText));
+                                    browser.takeScreenshot();
+                                    // UI Validation
+                                    src.Login(
+                                        clientData.LoginURL,
+                                        testData[0]["RALLY_EMAIL"],
+                                        testData[0]["RALLY_PASSWORD"]
+                                    );
+                                    src.ResourcePage();
+                                    action.doWaitForElement($(ResourcePage.headline));
+                                    const ResourcePageHeadline = action.doGetText(
+                                        $(ResourcePage.headline)
+                                    );
+                                    const ResourcePageBodyText = action.doGetText(
+                                        $(ResourcePage.bodytext)
+                                    );
+                                    browser.takeScreenshot();
+                                    assert.equal(
+                                        Headline,
+                                        ResourcePageHeadline,
+                                        "Invalid page Headline"
+                                    );
+                                    assert.equal(
+                                        BodyText,
+                                        ResourcePageBodyText,
+                                        "Invalid page Body Text"
+                                    );
+                                    console.log(
+                                        clientName + " Benefits Page Validation Completed Successfully"
+                                    );
+                                    browser.reloadSession();
+                                } else {
+                                    //Rally UI Validation
+                                    src.Login(
+                                        clientData.LoginURL,
+                                        testData[0]["RALLY_EMAIL"],
+                                        testData[0]["RALLY_PASSWORD"]
+                                    );
+                                    src.ResourcePage();
+                                    browser.takeScreenshot();
+                                    console.log(
+                                        clientName + " Benefits Page Validation Completed Successfully"
+                                    );
+                                    browser.reloadSession();
+                                }
+
+                                new TestRailApi().updateRun(447585401, 1, 'Ran via automation')
+                            } catch (exception) {
+                                browser.reloadSession();
+                                new TestRailApi().updateRun(447585401, 5, 'Ran via automation')
+                                throw exception;
+                            }
+                        });
+                });
+        }
+    } catch (exception) {
+        throw exception;
     }
-  } catch (exception) {
-    throw exception;
-  }
 });

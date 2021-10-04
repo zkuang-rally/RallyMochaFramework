@@ -1,0 +1,5 @@
+mocha --opts mocha-testrail.opts build/test
+--recursive
+--reporter mocha-testrail-reporter
+--reporter-options domain=rally.testrail.net,username=abhinay.marapaka@rallyheath.com,password=9cm9PGkXpxtTQ7PzyTlR-jSNAC59AJWq4qgy4lo20 ,projectId=9,suiteId=2309
+--no-exit
