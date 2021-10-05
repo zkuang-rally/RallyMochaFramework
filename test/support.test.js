@@ -14,10 +14,10 @@ const TestRailApi = require("./util/TestRailApi");
 
 describe("Implementation", () => {
     try {
-        const GTUPrimaryFiles = fs.readdirSync("./clientTestData", ["**.xlsx"]);
-        for (let i = 1; i < GTUPrimaryFiles.length; i++) {
+        const GTUPrimaryFiles = fs.readdirSync("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData", ["**.xlsx"]);
+        for (let i = 0; i < GTUPrimaryFiles.length; i++) {
             const files = GTUPrimaryFiles[i];
-            const workbook = XLSX.readFile("clientTestData/" + files);
+            const workbook = XLSX.readFile("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData" + files);
             const workbookSheets = workbook.SheetNames;
             const sheet = workbookSheets[0];
             const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
