@@ -26,7 +26,7 @@ describe("Implementation", () => {
         it("Benefits Page", () => {
           try {
             //Taking requirement from Salesforce
-            rof.getCustomerSupportNumber(
+            rof.gotoRallyImplementation(
               constants.username,
               constants.password,
               clientName

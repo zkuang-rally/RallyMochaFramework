@@ -3,7 +3,7 @@ const action = require("../helpers/actionHelpers");
 const SFPage = require("../pages/rof.page");
 
 class requirements {
-  getCustomerSupportNumber(username, password, impName) {
+  gotoRallyImplementation(username, password, impName) {
     page.open("https://rallyhealth.my.salesforce.com/");
     action.doSetValue($(SFPage.username), username);
     action.doSetValue($(SFPage.password), password);
