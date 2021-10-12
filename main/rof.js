@@ -1,7 +1,6 @@
 const page = require("../pages/page");
 const action = require("../helpers/actionHelpers");
 const SFPage = require("../pages/rof.page");
-
 class requirements {
   gotoRallyImplementation(username, password, impName) {
     page.open("https://rallyhealth.my.salesforce.com/");
@@ -12,7 +11,7 @@ class requirements {
     action.doClick($(SFPage.alert));
     action.doSetValue($(SFPage.search), impName);
     action.doClick($(SFPage.searchBtn));
-    $("//a[normalize-space()="+impName+"]").click();
+    $("//a[normalize-space()=" + impName + "]").click();
   }
 }
 module.exports = new requirements();
