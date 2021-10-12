@@ -35,13 +35,12 @@ describe("Implementation", () => {
         const RewardPlanDesignsBody = url
           .replace(/(.*)#/, "")
           .replace("target", "body");
-          console.log(RewardPlanDesignsBody);
         const RewardPlanNames = $$(
           "#" + RewardPlanDesignsBody + " th:nth-child(2)"
         );
         browser.setTimeout({ implicit: 2000 });
         if (RewardPlanNames.length > 5) {
-          $("//*[@id='" + RewardPlanDesignsBody + "']/div/a[2]").click();
+          $("#"+RewardPlanDesignsBody).$("a*=Go to list").click();
           const RewardPlanNames = $$(".listRelatedObject th:nth-child(2)");
           for (let index = 1; index < RewardPlanNames.length; index++) {
             const element = RewardPlanNames[index].getText();
@@ -51,11 +50,11 @@ describe("Implementation", () => {
           for (let index = 1; index < RewardPlanNames.length; index++) {
             const element = RewardPlanNames[index].getText();
             console.log(element);
-            $("="+element).click();
-            const planDesignDetailsPage = browser.getUrl();
-            console.log(planDesignDetailsPage)
-            $("#CF00NE0000006Km0h_ileinner a").click();
-            browser.pause(6000)
+            // $("="+element).click();
+            // const planDesignDetailsPage = browser.getUrl();
+            // console.log(planDesignDetailsPage)
+            // $("#CF00NE0000006Km0h_ileinner a").click();
+            // browser.pause(6000)
           }
         }
       });
