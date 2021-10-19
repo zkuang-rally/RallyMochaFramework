@@ -62,12 +62,13 @@ class rallyUtil {
   }
 
   writeToFile(pathOfDir, jsonObj) {
-    fs.writeFile(pathOfDir, JSON.stringify(jsonObj), (err) => {
-      if (err) {
-        throw err;
-      }
-      console.log("JSON data is saved.");
-    });
+    fs.writeFileSync(pathOfDir, JSON.stringify(jsonObj));
+    // , (err) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   console.log("JSON data is saved.");
+    // });
   }
 
   createUserData(flag, clientFiles, dirPath) {
