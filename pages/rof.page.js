@@ -13,6 +13,5 @@ module.exports = {
   resourcePageHeadline    : "//div[@id='00NE0000006Km7g_ileinner']",
   resourcePageBodyText    : "//div[@id='00NE0000006Km7h_ileinner']",
   clientRequirementsFormLink : "div[id='00N2R0000072Hz8_ileinner']",
-  implementationLink         : "#lookupa0e2R00000DZEAm00NE0000006Km0h",
   rewardPlanDesignsHeaderLink : "*=Reward Plan Designs["
 };
