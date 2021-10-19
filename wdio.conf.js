@@ -1,7 +1,9 @@
 const config = require("./config");
+const TestRailApi = require('./test/utils/TestRailApi');
+const moment = require('moment')
 
-
-
+let resultsList = [];
+let testCaseIds = [];
 exports.config = {
     //
     // ====================
@@ -271,12 +273,84 @@ exports.config = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-    afterTest: function(
-        test,
-        context, { error, result, duration, passed, retries }
-    ) {
-        if (error) {
-            browser.takeScreenshot();
+    // afterTest: function(
+    //     test,
+    //     context, { error, result, duration, passed, retries }
+    // ) {
+    //     if (error) {
+    //         browser.takeScreenshot();
+    //     }
+    // }
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        // Test results are added to object
+        let testResult = {};
+        testCaseIds.push(test["title"].split("_")[0]);
+        if (!passed) {
+            testResult["case_id"] = test["title"].split("_")[0];
+            testResult["status_id"] = 5,
+                testResult["comment"] = `Ran via automation ${moment().format('YYYY-MM-DD h:mm a')}`
+            resultsList.push(testResult)
+        } else {
+            testResult["case_id"] = test["title"].split("_")[0];
+            testResult["status_id"] = 1,
+                testResult["comment"] = `Ran via automation ${moment().format('YYYY-MM-DD h:mm a')}`
+            resultsList.push(testResult)
         }
-    }
+    },
+
+
+    /**
+     * Hook that gets executed after the suite has ended
+     * @param {Object} suite suite details
+     */
+    afterSuite: function() {
+        // create test run and update test run with test result
+        let testRun = new TestRailApi().createRun(9, 2304, `New Test Run test101 ${moment().format('YYYY-MM-DD h:mm a')}`, testCaseIds)
+
+        // if needed to update a specific run replace testRun["id"] with 
+        new TestRailApi().addResults(testRun["id"], resultsList)
+    },
+    /**
+     * Runs after a WebdriverIO command gets executed
+     * @param {String} commandName hook command name
+     * @param {Array} args arguments that command would receive
+     * @param {Number} result 0 - command success, 1 - command error
+     * @param {Object} error error object if any
+     */
+    // afterCommand: function (commandName, args, result, error) {
+    // },
+    /**
+     * Gets executed after all tests are done. You still have access to all global variables from
+     * the test.
+     * @param {Number} result 0 - test pass, 1 - test fail
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs List of spec file paths that ran
+     */
+    // after: function (result, capabilities, specs) {
+    // },
+    /**
+     * Gets executed right after terminating the webdriver session.
+     * @param {Object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs List of spec file paths that ran
+     */
+    // afterSession: function (config, capabilities, specs) {
+    // },
+    /**
+     * Gets executed after all workers got shut down and the process is about to exit. An error
+     * thrown in the onComplete hook will result in the test run failing.
+     * @param {Object} exitCode 0 - success, 1 - fail
+     * @param {Object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {<Object>} results object containing test results
+     */
+    // onComplete: function(exitCode, config, capabilities, results) {
+    // },
+    /**
+     * Gets executed when a refresh happens.
+     * @param {String} oldSessionId session ID of the old session
+     * @param {String} newSessionId session ID of the new session
+     */
+    //onReload: function(oldSessionId, newSessionId) {
+    //}
 }

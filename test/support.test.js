@@ -9,6 +9,7 @@ const supportPage = require("../pages/support.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
+import CommonUtils from '../utils/commonUtils';
 const TestRailApi = require("./util/TestRailApi");
 
 
@@ -24,7 +25,7 @@ describe("Implementation", () => {
             const clientName =
                 "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
             describe(clientName, () => {
-                it(" T447585402 Support Details Page", () => {
+                it("30422013_Support_Center Support Details Page", () => {
                     try {
                         // Taking Requirement from Salesforce
                         rof.getCustomerSupportNumber(
@@ -93,10 +94,10 @@ describe("Implementation", () => {
                             browser.reloadSession();
                         }
 
-                        new TestRailApi().updateRun(447585402, 1, 'Ran via automation')
+                        // new TestRailApi().updateRun(447585402, 1, 'Ran via automation')
                     } catch (exception) {
                         browser.reloadSession();
-                        new TestRailApi().updateRun(447585402, 5, 'Ran via automation')
+                        // new TestRailApi().updateRun(447585402, 5, 'Ran via automation')
                         throw exception;
                     }
                 });

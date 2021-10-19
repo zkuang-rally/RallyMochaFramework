@@ -8,6 +8,7 @@ const ResourcePage = require("../pages/benefit.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
+import CommonUtils from '../utils/commonUtils';
 const TestRailApi = require("./util/TestRailApi");
 
 describe("Implementation", () => {
@@ -30,7 +31,7 @@ describe("Implementation", () => {
                     it("T447585401 Benefits Page", () =>
 
                         {
-                            new TestRailApi().updateRun(447585402, 1, 'Ran via automation 10/5/2021 9:35 AM')
+                            // new TestRailApi().updateRun(447585402, 1, 'Ran via automation 10/5/2021 9:35 AM')
                             try {
                                 //Taking requirement from Salesforce
                                 rof.getCustomerSupportNumber(
@@ -96,10 +97,10 @@ describe("Implementation", () => {
                                     browser.reloadSession();
                                 }
 
-                                new TestRailApi().updateRun(447585401, 1, 'Ran via automation')
+                                // new TestRailApi().updateRun(447585401, 1, 'Ran via automation')
                             } catch (exception) {
                                 browser.reloadSession();
-                                new TestRailApi().updateRun(447585401, 5, 'Ran via automation on 10/5/2021 at 9:55 AM')
+                                // new TestRailApi().updateRun(447585401, 5, 'Ran via automation on 10/5/2021 at 9:55 AM')
                                 throw exception;
                             }
                         });
