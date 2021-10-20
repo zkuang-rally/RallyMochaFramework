@@ -26,13 +26,13 @@ class buildPage {
     action.doWaitForElement($(homePage.benefit));
     action.doClick($(homePage.benefit));
     action.doWaitForElement($(benefitPage.headline));
-    }
+  }
 
   SupportPage() {
     $(homePage.myprofile).moveTo();
     action.doClick($(homePage.helpcenter));
     page.moveToTab("helpcenter.werally.com/rally/s/");
-    browser.setTimeout({ implicit: 2000 });
+    browser.setTimeout({ implicit: 1000 });
     let elemFlag = $(supportPage.carrierDropdown).isExisting();
     console.log("Element status: " + elemFlag);
     if (elemFlag) {

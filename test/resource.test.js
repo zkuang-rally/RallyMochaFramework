@@ -1,56 +1,98 @@
-const clientData = require("../client.data");
-const rof = require("../main/rof");
 const src = require("../main/sourse");
-const constants = require("../constants");
 const action = require("../helpers/actionHelpers");
-const SFPage = require("../pages/rof.page");
 const ResourcePage = require("../pages/benefit.page");
-const launchDate = require("../launchDate");
-const XLSX = require("xlsx");
+const clientData = require("../client.data");
 const fs = require("fs");
 const path = require("path");
+const rallyUtil = require("../helpers/rallyHelpers");
+const rof = require("../main/rof");
+const constants = require("../constants");
+const launchDate = require("../testdata/generic.json");
 
 describe("Implementation", () => {
   try {
-    const dataPath = path.resolve(__dirname,"./../clientTestData")
-    const GTUPrimaryFiles = fs.readdirSync(dataPath, ["**.xlsx"]);
-    for (let i = 0; i < GTUPrimaryFiles.length; i++) {
-      const files = GTUPrimaryFiles[i];
-      const workbook = XLSX.readFile("clientTestData/" + files);
-      const workbookSheets = workbook.SheetNames;
-      const sheet = workbookSheets[0];
-      const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-      const clientName =
-        "'" + testData[0]["CUST_LEG_NM"] + "'";
-      describe(clientName, () => {
-        it("Benefits Page", () => {
+    const out = "./../testdata/expected/resource.json";
+    const outPath = path.resolve(__dirname, out);
+    describe("clientName", () => {
+      it("Support Details Page", () => {
+        rof.loginSalesforce(constants.username, constants.password);
+        rallyUtil.saveClientDetailsFromSF("resource");
+        let Json1 = fs.readFileSync(outPath)
+        let objectJson = JSON.parse(Json1)
+        console.log("Some value: " + objectJson);
+
+        //Validation
+        for (let key in objectJson) {
+        if (action.isArray(objectJson[key])) {
+          for (arrCount = 0; arrCount < objectJson[key].length; arrCount++) {
+            userName = objectJson[key][arrCount].username;
+            password = objectJson[key][arrCount].password;
+            contactNumber = objectJson[key][arrCount].contactNumber;
+            resourceHeadline = objectJson[key][arrCount].resourceHeadline;
+            resourceBody = objectJson[key][arrCount].resourceBody;
+            try {
+              if (resourceHeadline == null) {
+                //Rally UI Validation
+                src.Login(clientData.LoginURL, userName, password);
+                src.ResourcePage();
+                browser.takeScreenshot();
+                console.log(
+                  clientName +
+                    " Benefits Page Validation Completed Successfully"
+                );
+                browser.reloadSession();
+              } else {
+                console.log("Client has Custom resource Page");
+                src.Login(clientData.LoginURL, userName, password);
+                src.ResourcePage();
+                action.doWaitForElement($(ResourcePage.headline));
+                const ResourcePageHeadline = action.doGetText(
+                  $(ResourcePage.headline)
+                );
+                const ResourcePageBodyText = action.doGetText(
+                  $(ResourcePage.bodytext)
+                );
+                browser.takeScreenshot();
+                assert.equal(
+                  resourceHeadline,
+                  ResourcePageHeadline,
+                  "Invalid page Headline"
+                );
+                assert.equal(
+                  resourceBody,
+                  ResourcePageBodyText,
+                  "Invalid page Body Text"
+                );
+                console.log(
+                  clientName +
+                    " Benefits Page Validation Completed Successfully"
+                );
+                browser.reloadSession();
+              }
+            } catch (exception) {
+              browser.reloadSession();
+              throw exception;
+            }
+          }
+        } else {
+          var userName = objectJson[key].username;
+          var password = objectJson[key].password;
+          var resourceHeadline = objectJson[key].resourceHeadline;
+          var resourceBody = objectJson[key].resourceBody;
           try {
-            //Taking requirement from Salesforce
-            rof.gotoRallyImplementation(
-              constants.username,
-              constants.password,
-              clientName
-            );
-            const CustomResoucePageChkBox = SFPage.customResoursePage;
-            action.doWaitForElement($(CustomResoucePageChkBox));
-            $(CustomResoucePageChkBox).scrollIntoView();
-            browser.takeScreenshot();
-            const check = $(CustomResoucePageChkBox)
-              .getAttribute("title")
-              .toLowerCase();
-            if (check === "checked") {
-              action.doWaitForElement($(SFPage.resourcePageRequirement));
-              action.doClick($(SFPage.resourcePageRequirement));
-              action.doWaitForElement($(SFPage.resourcePageHeadline));
-              const Headline = action.doGetText($(SFPage.resourcePageHeadline));
-              const BodyText = action.doGetText($(SFPage.resourcePageBodyText));
+            if (resourceHeadline == null) {
+              //Rally UI Validation
+              console.log(userName)
+              src.Login(clientData.LoginURL, userName, password);
+              src.ResourcePage();
               browser.takeScreenshot();
-              // UI Validation
-              src.Login(
-                clientData.LoginURL,
-                testData[0]["RALLY_EMAIL"],
-                testData[0]["RALLY_PASSWORD"]
+              console.log(
+                " Benefits Page Validation Completed Successfully"
               );
+              browser.reloadSession();
+            } else {
+              console.log("custom resource Page");
+              src.Login(clientData.LoginURL, userName, password);
               src.ResourcePage();
               action.doWaitForElement($(ResourcePage.headline));
               const ResourcePageHeadline = action.doGetText(
@@ -61,30 +103,17 @@ describe("Implementation", () => {
               );
               browser.takeScreenshot();
               assert.equal(
-                Headline,
+                resourceHeadline,
                 ResourcePageHeadline,
                 "Invalid page Headline"
               );
               assert.equal(
-                BodyText,
+                resourceBody,
                 ResourcePageBodyText,
                 "Invalid page Body Text"
               );
               console.log(
-                clientName + " Benefits Page Validation Completed Successfully"
-              );
-              browser.reloadSession();
-            } else {
-              //Rally UI Validation
-              src.Login(
-                clientData.LoginURL,
-                testData[0]["RALLY_EMAIL"],
-                testData[0]["RALLY_PASSWORD"]
-              );
-              src.ResourcePage();
-              browser.takeScreenshot();
-              console.log(
-                clientName + " Benefits Page Validation Completed Successfully"
+                " Benefits Page Validation Completed Successfully"
               );
               browser.reloadSession();
             }
@@ -92,9 +121,10 @@ describe("Implementation", () => {
             browser.reloadSession();
             throw exception;
           }
-        });
+        }
+      }
       });
-    }
+    });
   } catch (exception) {
     browser.reloadSession();
     throw exception;

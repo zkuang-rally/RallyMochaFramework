@@ -1,5 +1,5 @@
 module.exports = {
-    timeout: 250000,
-    waitforTimeout: 30000
-  }
+    timeout: 7000000,
+    waitforTimeout: 200000
+  };
   
