@@ -8,24 +8,25 @@ const rallyUtil = require("../helpers/rallyHelpers");
 const rof = require("../main/rof");
 const constants = require("../constants");
 const launchDate = require("../testdata/generic.json");
+let objectJson =require("./../testdata/expected/support.json");
 
 describe("Implementation", () => {
   try {
     before(function () {
       rof.loginSalesforce(constants.username, constants.password);
       rallyUtil.saveClientDetailsFromSF("support");
+      const out = "./../testdata/expected/support.json";
+      const outPath = path.resolve(__dirname, out);
+      let Json1 = fs.readFileSync(outPath);
+      objectJson = JSON.parse(Json1);
     });
-    const out = "./../testdata/expected/support.json";
-    const outPath = path.resolve(__dirname, out);
-    let Json1 = fs.readFileSync(outPath);
-    let objectJson = JSON.parse(Json1);
-    console.log("Some value: " + objectJson);
 
     // Validations
     for (let key in objectJson) {
       const clientName = JSON.stringify(key);
       describe(clientName, () => {
         it("Support Center Details", () => {
+          console.log("Complete Json: " + JSON.stringify(objectJson));
           if (action.isArray(objectJson[key])) {
             for (arrCount = 0; arrCount < objectJson[key].length; arrCount++) {
               userName = objectJson[key][arrCount].username;
@@ -50,13 +51,13 @@ describe("Implementation", () => {
             }
           } else {
             try {
+              console.log("Complete Json inside else: " + JSON.stringify(objectJson));
+
               userName = objectJson[key].username;
               password = objectJson[key].password;
-              contactNumber01 = objectJson[key].contactNumber;
+              contactNumber = objectJson[key].contactNumber;
               // .replace(/[^0-9]/g, "")
               // .substring(1);
-              console.log(userName);
-              console.log(contactNumber01);
               src.Login(clientData.LoginURL, userName, password);
               src.SupportPage();
               const RSupportNumber = action
