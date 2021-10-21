@@ -77,6 +77,7 @@ class rallyUtil {
     let sfExpectation = {};
     let username;
     let password;
+    let rewardPlanName;
 
     username = 'username';
     password = 'password';
