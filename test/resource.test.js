@@ -8,6 +8,8 @@ const rallyUtil = require("../helpers/rallyHelpers");
 const rof = require("../main/rof");
 const constants = require("../constants");
 const launchDate = require("../testdata/generic.json");
+let objectJson =require("./../testdata/expected/resource.json");
+
 
 describe("Implementation", () => {
   try {
@@ -15,12 +17,14 @@ describe("Implementation", () => {
       // runs once before the first test in this block
       rof.loginSalesforce(constants.username, constants.password);
       rallyUtil.saveClientDetailsFromSF("resource");
+      const out = "./../testdata/expected/resource.json";
+      const outPath = path.resolve(__dirname, out);
+      let Json1 = fs.readFileSync(outPath);
+      objectJson = JSON.parse(Json1);
+
     });
-    const out = "./../testdata/expected/resource.json";
-    const outPath = path.resolve(__dirname, out);
-    let Json1 = fs.readFileSync(outPath);
-    let objectJson = JSON.parse(Json1);
-    console.log("Some value: " + objectJson);
+    
+
     //Validation
     for (let key in objectJson) {
       const clientName = JSON.stringify(key);
@@ -33,7 +37,7 @@ describe("Implementation", () => {
               resourceHeadline = objectJson[key][arrCount].resourceHeadline;
               resourceBody = objectJson[key][arrCount].resourceBody;
               try {
-                if (resourceHeadline == null) {
+                if (resourceHeadline === null) {
                   //Rally UI Validation
                   src.Login(clientData.LoginURL, userName, password);
                   src.ResourcePage();
@@ -81,10 +85,11 @@ describe("Implementation", () => {
             var password = objectJson[key].password;
             var resourceHeadline = objectJson[key].resourceHeadline;
             var resourceBody = objectJson[key].resourceBody;
+            console.log("resouce headline ="+resourceHeadline)
+            console.log(userName);
             try {
-              if (resourceHeadline == null) {
+              if (resourceHeadline === null) {
                 //Rally UI Validation
-                console.log(userName);
                 src.Login(clientData.LoginURL, userName, password);
                 src.ResourcePage();
                 browser.takeScreenshot();
