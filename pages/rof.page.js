@@ -13,5 +13,8 @@ module.exports = {
   resourcePageHeadline    : "//div[@id='00NE0000006Km7g_ileinner']",
   resourcePageBodyText    : "//div[@id='00NE0000006Km7h_ileinner']",
   clientRequirementsFormLink : "div[id='00N2R0000072Hz8_ileinner']",
-  rewardPlanDesignsHeaderLink : "*=Reward Plan Designs["
+  rewardPlanDesignsHeaderLink : "*=Reward Plan Designs[",
+  CTA                         : "//*[@id='00N2R000007NnZL_ileinner']",
+  CTAValue                    : "div[id='00N2R000007NnZK_ileinner']",
+  RewardActivityID            : "#CF00N44000006b0LH_ileinner a"
 };
