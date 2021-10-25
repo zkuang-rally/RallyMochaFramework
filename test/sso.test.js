@@ -13,6 +13,7 @@ const XLSX = require("xlsx");
 const fs = require("fs");
 const path = require("path");
 const ssoObjectJson = require("../testdata/ssoInternalLinks.json");
+const ssoMapingObjectJson = require("../testdata/ssoMapping.json");
 
 describe("Implementation", () => {
   try {
@@ -89,11 +90,19 @@ describe("Implementation", () => {
                   console.log("Call to Action : " + CTA);
                   console.log("CTA Value : " + CTAValue);
                   console.log("Reward Activity Id : " + RewardActivityID);
-                  if (CTA === "Rally Internal Link") {
-                    let urlValue = ssoObjectJson[CTAValue];
-                    console.log("Activity Link is : " + urlValue);
-                  }
 
+                  switch (CTA) {
+                    case "Rally Internal Link":
+                      let urlValue = ssoObjectJson[CTAValue];
+                      console.log("Rally Internal Link is : " + urlValue);
+                      break;
+                    case "SSO":
+                      let ssoUrlValue = ssoMapingObjectJson[CTAValue];
+                      console.log("SSO to Quest link is : " + ssoUrlValue);
+                      break;
+                    default:
+                      break;
+                  }
                   browser.back();
                 }
                 action.doClick($("=" + ImplementationName));
@@ -119,9 +128,17 @@ describe("Implementation", () => {
                   console.log("CTA Value : " + CTAValue);
                   console.log("Reward Activity Id : " + RewardActivityID);
 
-                  if (CTA === "Rally Internal Link") {
-                    let urlValue = ssoObjectJson[CTAValue];
-                    console.log("Activity Link is : " + urlValue);
+                  switch (CTA) {
+                    case "Rally Internal Link":
+                      let urlValue = ssoObjectJson[CTAValue];
+                      console.log("Rally Internal Link is : " + urlValue);
+                      break;
+                    case "SSO":
+                      let ssoUrlValue = ssoMapingObjectJson[CTAValue];
+                      console.log("SSO to Quest link is : " + ssoUrlValue);
+                      break;
+                    default:
+                      break;
                   }
 
                   action.doClick($("=" + RewardPlanName));
