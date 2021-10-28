@@ -12,7 +12,14 @@ class requirements {
     action.doClick($(SFPage.alert));
     action.doSetValue($(SFPage.search), impName);
     action.doClick($(SFPage.searchBtn));
-    action.doClick($("=" + impName));
+
+    browser.setTimeout({ implicit: 2000 });
+    let impElement = $("=" + impName).isExisting();
+    console.log("Implementation Status : " + impElement);
+    assert.equal(impElement, true, "Implementation Name format mismatch");
+    if (impElement) {
+      action.doClick($("=" + impName));
+    }
   }
 }
 module.exports = new requirements();
