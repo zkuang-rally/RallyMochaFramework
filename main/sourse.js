@@ -11,18 +11,19 @@ class buildPage {
     action.doSetValue($(loginPage.email), email);
     action.doSetValue($(loginPage.password), password);
     action.doClick($(loginPage.loginBtn));
-    browser.pause(2000);
-    const alert = $(loginPage.alertBanner).isDisplayed();
-    assert.equal(
-      alert,
-      false,
-      "The email/password combination you entered is not valid. Please try again."
-    );
+    browser.setTimeout({ implicit: 1000 });
+    let alertFlag = $(loginPage.alertBanner).isDisplayed();
+    if (alertFlag) {
+      assert.equal(
+        alertFlag,
+        false,
+        "The email/password combination you entered is not valid. Please try again."
+      );
+    }
   }
 
   ResourcePage() {
-    action.doWaitForElement($(homePage.notNow));
-    action.doClick($(homePage.notNow));
+    page.open("https://member.werally.com/home/");
     action.doWaitForElement($(homePage.benefit));
     action.doClick($(homePage.benefit));
     action.doWaitForElement($(benefitPage.headline));
@@ -42,8 +43,7 @@ class buildPage {
   }
 
   RewardsPage() {
-    action.doWaitForElement($(homePage.notNow));
-    action.doClick($(homePage.notNow));
+    page.open("https://member.werally.com/home/");
     action.doWaitForElement($(homePage.reward));
     action.doClick($(homePage.reward));
     action.doWaitForElement(rewardsPage.genericButton);
