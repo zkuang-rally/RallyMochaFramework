@@ -21,7 +21,7 @@ describe("Implementation", () => {
       const sheet = workbookSheets[0];
       const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
       const clientName =
-        "'" + testData[0]["CUST_LEG_NM"] + "'";
+        testData[0]["CUST_LEG_NM"] + " - "+ launchDate.launchDate;
       describe(clientName, () => {
         it("Benefits Page", () => {
           try {

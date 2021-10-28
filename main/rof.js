@@ -12,7 +12,7 @@ class requirements {
     action.doClick($(SFPage.alert));
     action.doSetValue($(SFPage.search), impName);
     action.doClick($(SFPage.searchBtn));
-    $("//a[normalize-space()="+impName+"]").click();
+    action.doClick($("=" + impName));
   }
 }
 module.exports = new requirements();
