@@ -111,7 +111,8 @@ class rallyUtil {
     for (let key in jsonObj) {
       console.log(key + " -> " + jsonObj[key]);
 
-      let clientImp = key + ' - ' + dateOfRelease;
+      let clientImp = key 
+      // + ' - ' + dateOfRelease;
       let contactNumber = 'contactNumber';
       let resourceHeadline = 'resourceHeadline';
       let resourceBody = 'resourceBody';
