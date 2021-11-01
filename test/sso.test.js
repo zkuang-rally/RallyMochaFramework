@@ -32,98 +32,90 @@ describe("Implementation", () => {
       });
       describe(ImplementationName, () => {
         it("SSO Validation", () => {
-          for (arrCount = 0; arrCount < objectJson[key].length; arrCount++) {
-            userName = objectJson[key][arrCount].username;
-            password = objectJson[key][arrCount].password;
-            RewardPlanName = objectJson[key][arrCount].rewardPlanName;
-            console.log("Reward Plan Name: " + RewardPlanName);
-            if (
-              RewardPlanName === undefined ||
-              userName === undefined ||
-              password === undefined
-            ) {
-              console.log("No Reward affiliation user");
-            } else {
-              action.doWaitForElement($(rofPage.rewardPlanDesignsHeaderLink));
-              action.doClick($(rofPage.rewardPlanDesignsHeaderLink));
-              const url = browser.getUrl();
-              const RewardPlanDesignsBody = url
-                .replace(/(.*)#/, "")
-                .replace("target", "body");
-              const RewardPlanNames = $$(
-                "#" + RewardPlanDesignsBody + " th:nth-child(2)"
-              );
-              browser.setTimeout({ implicit: 2000 });
-              if (RewardPlanNames.length > 5) {
-                action.doClick($("#" + RewardPlanDesignsBody).$("a*=Show"));
-              }
-
-              action.doClick($("=" + RewardPlanName));
-              console.log("we are in reward plan details page ");
-              const planDetailsPage = browser.getUrl();
-              const ActivitiesBody =
-                planDetailsPage.split("/").pop() + "_00NE0000006Km81_body";
-              const Activities = $$("#" + ActivitiesBody + " th:nth-child(2)");
-              browser.setTimeout({ implicit: 2000 });
-
-              if (Activities.length > 5) {
-                action.doClick($("#" + ActivitiesBody).$("a*=Go to list"));
-                const rewardPlanActivitiesGoto = $$(
-                  ".bPageBlock.brandSecondaryBrd.secondaryPalette th:nth-child(2)"
-                );
-                const b_xpath = "//a[normalize-space()='0";
-                const a_xpath = "']";
-                for (let j = 1; j <= rewardPlanActivitiesGoto.length; j++) {
-                  const rewardActivityNumber = action.doGetText(
-                    $(b_xpath + j + a_xpath)
-                  );
-                  console.log("Activity Number : " + rewardActivityNumber);
-                  action.doClick($("=" + rewardActivityNumber));
-                  expect($(rofPage.CTA)).toExist();
-                  const CTA = action.doGetText($(rofPage.CTA));
-                  expect($(rofPage.CTAValue)).toExist();
-                  const CTAValue = action.doGetText($(rofPage.CTAValue));
-                  expect($(rofPage.RewardActivityID)).toExist();
-                  const RewardActivityID = action.doGetText(
-                    $(rofPage.RewardActivityID)
-                  );
-                  console.log("Call to Action : " + CTA);
-                  console.log("CTA Value : " + CTAValue);
-                  console.log("Reward Activity Id : " + RewardActivityID);
-
-                  switch (CTA) {
-                    case "Rally Internal Link":
-                      let urlValue = ssoObjectJson[CTAValue];
-                      console.log("Rally Internal Link is : " + urlValue);
-                      break;
-                    case "SSO":
-                      let ssoUrlValue = ssoMapingObjectJson[CTAValue];
-                      console.log("SSO to Quest link is : " + ssoUrlValue);
-                      break;
-                    default:
-                      break;
-                  }
-                  browser.back();
-                }
-                action.doClick($("=" + ImplementationName));
+          if (rallyUtil.isArray(objectJson[key])) {
+            for (let arrCount = 0; arrCount < objectJson[key].length; arrCount++) {
+              let userName = objectJson[key][arrCount].username;
+              let password = objectJson[key][arrCount].password;
+              let RewardPlanName = objectJson[key][arrCount].rewardPlanName;
+              console.log("Reward Plan Name: " + RewardPlanName);
+              if (
+                RewardPlanName === undefined ||
+                userName === undefined ||
+                password === undefined
+              ) { 
+                console.log("No Reward affiliation user");
               } else {
-                const b_xpath =
-                  '//*[@id="' + ActivitiesBody + '"]/table/tbody/tr[';
-                const a_xpath = "]/th/a";
-                for (let j = 2; j <= Activities.length; j++) {
-                  const rewardActivityNumber = action.doGetText(
-                    $(b_xpath + j + a_xpath)
+                action.doWaitForElement($(rofPage.rewardPlanDesignsHeaderLink));
+                action.doClick($(rofPage.rewardPlanDesignsHeaderLink));
+                const url = browser.getUrl();
+                const RewardPlanDesignsBody = url
+                  .replace(/(.*)#/, "")
+                  .replace("target", "body");
+                const RewardPlanNames = $$(
+                  "#" + RewardPlanDesignsBody + " th:nth-child(2)"
+                );
+                browser.setTimeout({ implicit: 2000 });
+                if (RewardPlanNames.length > 5) {
+                  action.doClick($("#" + RewardPlanDesignsBody).$("a*=Show"));
+                }
+
+                action.doClick($("=" + RewardPlanName));
+                console.log("we are in reward plan details page ");
+                const planDetailsPage = browser.getUrl();
+                const ActivitiesBody =
+                  planDetailsPage.split("/").pop() + "_00NE0000006Km81_body";
+                let Activities = $$("#" + ActivitiesBody + " th:nth-child(2)");
+                browser.setTimeout({ implicit: 2000 });
+                let intActCount;
+                let b_xpath;
+                let a_xpath;
+
+                let actLength = Activities.length;
+                if (actLength > 5) {
+                  action.doClick($("#" + ActivitiesBody).$("a*=Go to list"));
+                  Activities = $$(
+                    ".bPageBlock.brandSecondaryBrd.secondaryPalette th:nth-child(2)"
                   );
+                  b_xpath = "//a[normalize-space()='0";
+                  a_xpath = "']";
+                  intActCount = 1;
+                }
+                else {
+                  intActCount = 2;
+                  b_xpath =
+                    '//*[@id="' + ActivitiesBody + '"]/table/tbody/tr[';
+                  a_xpath = "]/th/a";
+                }
+
+                for (let intCount = intActCount; intCount <= Activities.length; intCount++) {
+                  const rewardActivityNumber = action.doGetText(
+                    $(b_xpath + intCount + a_xpath)
+                  );
+
                   console.log("Activity Number : " + rewardActivityNumber);
                   action.doClick($("=" + rewardActivityNumber));
                   expect($(rofPage.CTA)).toExist();
+
+                  // let chkCopyTemp = $(rofPage.checkboxCopyTemplate).getAttribute("title").toLowerCase();
+
                   const CTA = action.doGetText($(rofPage.CTA));
-                  expect($(rofPage.CTAValue)).toExist();
-                  const CTAValue = action.doGetText($(rofPage.CTAValue));
+                  let CTAValue;
+
                   expect($(rofPage.RewardActivityID)).toExist();
                   const RewardActivityID = action.doGetText(
                     $(rofPage.RewardActivityID)
                   );
+
+                  // if (CTA.toLowerCase() != 'rally internal details page')
+                  // {
+                    expect($(rofPage.CTAValue)).toExist();
+                    CTAValue = action.doGetText($(rofPage.CTAValue));
+                  // }
+                  // else
+                  // {
+                  //   CTAValue = null;
+                  // }
+
                   console.log("Call to Action : " + CTA);
                   console.log("CTA Value : " + CTAValue);
                   console.log("Reward Activity Id : " + RewardActivityID);
@@ -141,15 +133,52 @@ describe("Implementation", () => {
                       break;
                   }
 
-                  action.doClick($("=" + RewardPlanName));
+                  const activities = 'activities';
+                  const ctaAction = 'ctaAction';
+                  const ctaValue = 'ctaValue';
+                  const rewardActID = 'rewardActID';
+                  const chkCT = 'chkCT';
+
+                  if (actLength > 1)
+                  {
+                    if (!objectJson[key][activities]) {
+                      objectJson[key][activities] = [];
+                    }
+          
+                    objectJson[key][activities].push({ [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID });
+
+                  }
+                  else
+                  {
+                    if (!objectJson[key][activities]) {
+                      objectJson[key][activities] = {};
+                    }
+          
+                    objectJson[key][activities] = { [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID };
+                  }
+
+                  console.log("The new object is: " + JSON.stringify(objectJson[key][activities]));
+                  
+
+                  if (actLength > 5) {
+                    browser.back();
+                  }
+                  else {
+                    action.doClick($("=" + RewardPlanName));
+                  }
+
                 }
                 action.doClick($("=" + ImplementationName));
               }
             }
           }
+
         });
       });
     }
+
+    rallyUtil.writeToFile(outPath, objectJson);
+
   } catch (exception) {
     throw exception;
   }
