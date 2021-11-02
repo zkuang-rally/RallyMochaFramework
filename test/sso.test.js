@@ -42,7 +42,7 @@ describe("Implementation", () => {
                 RewardPlanName === undefined ||
                 userName === undefined ||
                 password === undefined
-              ) { 
+              ) {
                 console.log("No Reward affiliation user");
               } else {
                 action.doWaitForElement($(rofPage.rewardPlanDesignsHeaderLink));
@@ -88,77 +88,75 @@ describe("Implementation", () => {
                 }
 
                 for (let intCount = intActCount; intCount <= Activities.length; intCount++) {
-                  const rewardActivityNumber = action.doGetText(
-                    $(b_xpath + intCount + a_xpath)
-                  );
 
-                  console.log("Activity Number : " + rewardActivityNumber);
-                  action.doClick($("=" + rewardActivityNumber));
-                  expect($(rofPage.CTA)).toExist();
+                  try {
+                    const rewardActivityNumber = action.doGetText(
+                      $(b_xpath + intCount + a_xpath)
+                    );
 
-                  // let chkCopyTemp = $(rofPage.checkboxCopyTemplate).getAttribute("title").toLowerCase();
+                    console.log("Activity Number : " + rewardActivityNumber);
+                    action.doClick($("=" + rewardActivityNumber));
+                    expect($(rofPage.CTA)).toExist();
 
-                  const CTA = action.doGetText($(rofPage.CTA));
-                  let CTAValue;
+                    let chkCopyTemp = $(rofPage.checkboxCopyTemplate).getAttribute("title");
 
-                  expect($(rofPage.RewardActivityID)).toExist();
-                  const RewardActivityID = action.doGetText(
-                    $(rofPage.RewardActivityID)
-                  );
+                    const CTA = action.doGetText($(rofPage.CTA));
+                    let CTAValue;
 
-                  // if (CTA.toLowerCase() != 'rally internal details page')
-                  // {
+                    expect($(rofPage.RewardActivityID)).toExist();
+                    const RewardActivityID = action.doGetText(
+                      $(rofPage.RewardActivityID)
+                    );
+
                     expect($(rofPage.CTAValue)).toExist();
                     CTAValue = action.doGetText($(rofPage.CTAValue));
-                  // }
-                  // else
-                  // {
-                  //   CTAValue = null;
-                  // }
 
-                  console.log("Call to Action : " + CTA);
-                  console.log("CTA Value : " + CTAValue);
-                  console.log("Reward Activity Id : " + RewardActivityID);
+                    console.log("Call to Action : " + CTA);
+                    console.log("CTA Value : " + CTAValue);
+                    console.log("Reward Activity Id : " + RewardActivityID);
+                    console.log("Copy Template Checkbox status is : " + chkCopyTemp);
 
-                  switch (CTA) {
-                    case "Rally Internal Link":
-                      let urlValue = ssoObjectJson[CTAValue];
-                      console.log("Rally Internal Link is : " + urlValue);
-                      break;
-                    case "SSO":
-                      let ssoUrlValue = ssoMapingObjectJson[CTAValue];
-                      console.log("SSO to Quest link is : " + ssoUrlValue);
-                      break;
-                    default:
-                      break;
-                  }
-
-                  const activities = 'activities';
-                  const ctaAction = 'ctaAction';
-                  const ctaValue = 'ctaValue';
-                  const rewardActID = 'rewardActID';
-                  const chkCT = 'chkCT';
-
-                  if (actLength > 1)
-                  {
-                    if (!objectJson[key][activities]) {
-                      objectJson[key][activities] = [];
+                    switch (CTA) {
+                      case "Rally Internal Link":
+                        let urlValue = ssoObjectJson[CTAValue];
+                        console.log("Rally Internal Link is : " + urlValue);
+                        break;
+                      case "SSO":
+                        let ssoUrlValue = ssoMapingObjectJson[CTAValue];
+                        console.log("SSO to Quest link is : " + ssoUrlValue);
+                        break;
+                      default:
+                        break;
                     }
-          
-                    objectJson[key][activities].push({ [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID });
 
-                  }
-                  else
-                  {
-                    if (!objectJson[key][activities]) {
-                      objectJson[key][activities] = {};
+                    const activities = 'activities';
+                    const ctaAction = 'ctaAction';
+                    const ctaValue = 'ctaValue';
+                    const rewardActID = 'rewardActID';
+                    const chkCT = 'chkCT';
+
+                    if (actLength > 1) {
+                      if (!objectJson[key][activities]) {
+                        objectJson[key][activities] = [];
+                      }
+
+                      objectJson[key][activities].push({ [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID, [chkCT]: chkCopyTemp });
+
                     }
-          
-                    objectJson[key][activities] = { [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID };
-                  }
+                    else {
+                      if (!objectJson[key][activities]) {
+                        objectJson[key][activities] = {};
+                      }
 
-                  console.log("The new object is: " + JSON.stringify(objectJson[key][activities]));
-                  
+                      objectJson[key][activities] = { [ctaAction]: CTA, [ctaValue]: CTAValue, [rewardActID]: RewardActivityID, [chkCT]: chkCopyTemp };
+                    }
+
+                    console.log("The new object is: " + JSON.stringify(objectJson[key][activities]));
+
+                  }
+                  catch{
+                    console.log("Selectors are not as per expectation");
+                  }
 
                   if (actLength > 5) {
                     browser.back();
@@ -177,7 +175,7 @@ describe("Implementation", () => {
       });
     }
 
-    rallyUtil.writeToFile(outPath, objectJson);
+    // rallyUtil.writeToFile(outPath, objectJson);
 
   } catch (exception) {
     throw exception;
