@@ -10,8 +10,9 @@ class buildPage {
     page.open(loginUrl);
     action.doSetValue($(loginPage.email), email);
     action.doSetValue($(loginPage.password), password);
+    browser.pause(5000);
     action.doClick($(loginPage.loginBtn));
-    browser.pause(2000);
+    browser.pause(5000);
     const alert = $(loginPage.alertBanner).isDisplayed();
     assert.equal(
       alert,

@@ -1,4 +1,4 @@
 module.exports = {
-    username: 'laxmiraj.uppula@rallyhealth.com',
-    password: '12345678'
+    username: 'zhenxian.kuang@rallyhealth.com',
+    password: 'Zhen567!'
 };
