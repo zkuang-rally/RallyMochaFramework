@@ -9,16 +9,13 @@ const supportPage = require("../pages/support.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
-import CommonUtils from '../utils/commonUtils';
-const TestRailApi = require("./util/TestRailApi");
 
 
 describe("Implementation", () => {
-    try {
-        const GTUPrimaryFiles = fs.readdirSync("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData", ["**.xlsx"]);
+        const GTUPrimaryFiles = fs.readdirSync("clientTestData/", ["**.xlsx"]);
         for (let i = 0; i < GTUPrimaryFiles.length; i++) {
             const files = GTUPrimaryFiles[i];
-            const workbook = XLSX.readFile("/Users/abhinay.marapaka/Documents/RallyMochaFramework/clientTestData" + files);
+            const workbook = XLSX.readFile("clientTestData/" + files);
             const workbookSheets = workbook.SheetNames;
             const sheet = workbookSheets[0];
             const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
@@ -26,7 +23,6 @@ describe("Implementation", () => {
                 "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
             describe(clientName, () => {
                 it("30422013_Support_Center Support Details Page", () => {
-                    try {
                         // Taking Requirement from Salesforce
                         rof.getCustomerSupportNumber(
                             constants.username,
@@ -93,17 +89,7 @@ describe("Implementation", () => {
                             );
                             browser.reloadSession();
                         }
-
-                        // new TestRailApi().updateRun(447585402, 1, 'Ran via automation')
-                    } catch (exception) {
-                        browser.reloadSession();
-                        // new TestRailApi().updateRun(447585402, 5, 'Ran via automation')
-                        throw exception;
-                    }
                 });
             });
         }
-    } catch (exception) {
-        throw exception;
-    }
 });

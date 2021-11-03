@@ -8,31 +8,24 @@ const ResourcePage = require("../pages/benefit.page");
 const launchDate = require("../launchDate");
 const XLSX = require("xlsx");
 const fs = require("fs");
-import CommonUtils from '../utils/commonUtils';
-const TestRailApi = require("./util/TestRailApi");
 
 describe("Implementation", () => {
     console.log("resource");
-    try {
-        const GTUPrimaryFiles = fs.readdirSync("/Users/abhinay.marapaka/Desktop/RallyMochaFramework/clientTestData/", ["**.xlsx"]);
+        const GTUPrimaryFiles = fs.readdirSync("clientTestData/", ["**.xlsx"]);
         console.log("Testing" + GTUPrimaryFiles);
         for (let i = 0; i < GTUPrimaryFiles.length; i++) {
             const files = GTUPrimaryFiles[i];
-            const workbook = XLSX.readFile("/Users/abhinay.marapaka/Desktop/RallyMochaFramework/clientTestData/" + files);
+            const workbook = XLSX.readFile("clientTestData/" + files);
             const workbookSheets = workbook.SheetNames;
             const sheet = workbookSheets[0];
             const testData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
             const clientName =
                 "'" + testData[0]["CUST_LEG_NM"] + " - " + launchDate.launchDate + "'";
             describe(clientName, () =>
-
-
                 {
-                    it("T447585401 Benefits Page", () =>
-
+                    it("447585401_Benefits Page", () =>
                         {
                             // new TestRailApi().updateRun(447585402, 1, 'Ran via automation 10/5/2021 9:35 AM')
-                            try {
                                 //Taking requirement from Salesforce
                                 rof.getCustomerSupportNumber(
                                     constants.username,
@@ -96,17 +89,7 @@ describe("Implementation", () => {
                                     );
                                     browser.reloadSession();
                                 }
-
-                                // new TestRailApi().updateRun(447585401, 1, 'Ran via automation')
-                            } catch (exception) {
-                                browser.reloadSession();
-                                // new TestRailApi().updateRun(447585401, 5, 'Ran via automation on 10/5/2021 at 9:55 AM')
-                                throw exception;
-                            }
                         });
                 });
         }
-    } catch (exception) {
-        throw exception;
-    }
 });

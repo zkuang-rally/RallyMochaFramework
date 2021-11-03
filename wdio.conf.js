@@ -82,7 +82,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: "error",
+    logLevel: "info",
     //
     // Set specific log levels per logger
     // loggers:
@@ -283,6 +283,7 @@ exports.config = {
     // }
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
         // Test results are added to object
+        console.log("After test")
         let testResult = {};
         testCaseIds.push(test["title"].split("_")[0]);
         if (!passed) {
@@ -296,6 +297,11 @@ exports.config = {
                 testResult["comment"] = `Ran via automation ${moment().format('YYYY-MM-DD h:mm a')}`
             resultsList.push(testResult)
         }
+        console.log(testResult)
+        let testRun = new TestRailApi().createRun(9, 2304, `New Test Run test101 ${moment().format('YYYY-MM-DD h:mm a')}`, testCaseIds)
+
+        // if needed to update a specific run replace testRun["id"] with 
+        new TestRailApi().addResults(testRun["id"], resultsList)
     },
 
 
@@ -303,13 +309,13 @@ exports.config = {
      * Hook that gets executed after the suite has ended
      * @param {Object} suite suite details
      */
-    afterSuite: function() {
-        // create test run and update test run with test result
-        let testRun = new TestRailApi().createRun(9, 2304, `New Test Run test101 ${moment().format('YYYY-MM-DD h:mm a')}`, testCaseIds)
+    // afterSuite: function() {
+    //     // create test run and update test run with test result
+    //     let testRun = new TestRailApi().createRun(9, 2304, `New Test Run test101 ${moment().format('YYYY-MM-DD h:mm a')}`, testCaseIds)
 
-        // if needed to update a specific run replace testRun["id"] with 
-        new TestRailApi().addResults(testRun["id"], resultsList)
-    },
+    //     // if needed to update a specific run replace testRun["id"] with 
+    //     new TestRailApi().addResults(testRun["id"], resultsList)
+    // },
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
