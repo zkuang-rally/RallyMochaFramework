@@ -16,7 +16,7 @@ const content=require('../clientTestData/content');
 
 
 describe('RallyHealth application- New User', function() {
-
+    this.timeout(15000);
     newdata.forEach( async function({FirstName,LastName,DateOfBirth,SearchId,ContractNumber})
     {
 
@@ -29,11 +29,12 @@ describe('RallyHealth application- New User', function() {
         await AccountRegistrationPage.openbrowser("registration/standard-collection")
 
         // user registeration
-        await AccountRegistrationPage.validatePageLoadByUrl(content.accountRegistrationPagePartialUrl)
+      //  await AccountRegistrationPage.validatePageLoadByUrl(content.accountRegistrationPagePartialUrl)
         let newEmail=helperObj.createNewEmailId()
-        await AccountRegistrationPage.fillUserDetailsAndContinue(FirstName,LastName,DateOfBirth,newEmail)
-        await NiceToMeetYouPage.validateNiceToMeetYouPageAndContinue(FirstName)
-        await CheckEligibilityPage.checkEligibilityAndContinue(SearchId,ContractNumber)
+
+        await AccountRegistrationPage.fillUserDetailsAndContinue(FirstName,LastName,DateOfBirth,newEmail);
+        await NiceToMeetYouPage.validateNiceToMeetYouPageAndContinue(FirstName);
+        await CheckEligibilityPage.checkEligibilityAndContinue(SearchId,ContractNumber);
 
         // conditionally checking is data is already used for account registeration
 

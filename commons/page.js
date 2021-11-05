@@ -34,11 +34,11 @@ module.exports = class Page {
         await browser.takeScreenshot()
     }    
 
-    async waitAndClick(elementloc)
+    async waitAndClick(elementloc1)
     {
         try{
-        await elementloc.waitForDisplayed()
-        await elementloc.click()
+      //  await elementloc1.waitForDisplayed();
+        await elementloc1.click();
         }
         catch(error)
         {
@@ -46,11 +46,14 @@ module.exports = class Page {
         }
     }
 
-    async waitAndType(elementloc,value)
+    async waitAndType(elementloc,value1)
     {
         try{
-        await elementloc.waitForDisplayed()
-        await elementloc.setValue(value)
+            console.log(
+                "*****" + value1 + "!!!!"
+              );
+     //   await elementloc.waitForDisplayed();
+        await elementloc.setValue(value1);
         }
         catch(error)
         {

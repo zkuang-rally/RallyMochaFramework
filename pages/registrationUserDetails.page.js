@@ -19,6 +19,7 @@ const Page = require('../commons/page');
 
     async fillLastName(lname)
     {
+        
         await this.waitAndType(this.lastname,lname)
     } 
 
@@ -34,12 +35,13 @@ const Page = require('../commons/page');
 
     async fillUserDetailsAndContinue(fname,lname,dobVal,emailVal)
     {
-        await this.fillFirstName(fname)
-        await this.fillLastName(lname)
-        await this.fillDateOfBirth(dobVal)
-        await this.fillEmail(emailVal)
-        await browser.takeScreenshot()
-        await this.clickSubmit()
+ 
+        await this.fillFirstName(fname);
+        await this.fillLastName(lname);
+        await this.fillDateOfBirth(dobVal);
+        await this.fillEmail(emailVal);
+        await browser.takeScreenshot();
+        await this.clickSubmit();
         console.log("User successfully filled user details and clicked continue")
     }
    

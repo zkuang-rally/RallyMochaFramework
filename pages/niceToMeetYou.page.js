@@ -18,11 +18,13 @@ const content=require('../clientTestData/content');
 
     async clickNiceToMeetYouBtn()
     {
-        await this.waitAndClick(this.niceToMeetYouLink)
+        await this.waitAndClick(this.niceToMeetYouLink);
     }    
 
     async validateNiceToMeetYouPageAndContinue(fname)
     {
+        console.log("~~~~~~~~~~~~" + fname)
+        browser.pause(5000);
         await this.validateNiceToMeetYouHeading(fname)
         await this.clickNiceToMeetYouBtn()
         console.log("User successfully landed on Nice to meet you page and clicked continue")
